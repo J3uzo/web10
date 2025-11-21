@@ -1,14 +1,9 @@
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from app.database.database import Base
+class RoleModel(Base):
+    __tablename__ = 'roles'
 
-
-class RolesModel(Base):
-    __tablename__ = "roles"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(100))
-
-    def __str__(self):
-        return self.title
+id = Column(Integer, primary_key=True)
+name = Column(String(50))
+users = relationship("UserModel", back_populates="role")
